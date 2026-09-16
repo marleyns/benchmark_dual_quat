@@ -42,3 +42,8 @@ Con el fin de comparar el costo computacional de ambas representaciones, se defi
 - **Composición de matrices homogéneas:**
   ```julia
   @benchmark($T_1 * $T_2 * $T_3 * $T_4 * $T_5 * $T_6)
+  ```
+- **Composición de cuaterniones duales:**
+  ```julia
+  @benchmark($H_1*$H_2*$H_3*$H_4*$H_5*$H_6)
+  ```
