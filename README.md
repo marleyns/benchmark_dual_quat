@@ -25,7 +25,7 @@ Para la obtención de los datos de la cinemática directa (FK) del UR10 se emple
 **Ejecución:**
 ```bash
 python download-FK.py
-
+```
 
 ### 2. Script Julia (`dualquat_composicion.jl`)
 
