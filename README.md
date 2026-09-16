@@ -25,3 +25,9 @@ Para la obtención de los datos de la cinemática directa (FK) del UR10 se emple
 **Ejecución:**
 ```bash
 python download-FK.py
+# Julia 1.12
+using Pkg
+Pkg.add("Quaternions")
+Pkg.add("ForwardDiff")
+Pkg.add("LinearAlgebra")
+Pkg.add("Random")
