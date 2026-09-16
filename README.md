@@ -27,3 +27,18 @@ Para la obtención de los datos de la cinemática directa (FK) del UR10 se emple
 python download-FK.py
 
 
+### 2. Script Julia (`dualquat_composicion.jl`)
+
+La implementación se realizó en el REPL de Julia, previa carga de las librerías `Quaternions.jl` y `ForwardDiff.jl`. Se definieron las funciones `const DualQuaternion{T}`, `motodual_from_quat(q_r, t)`, `motodual(T)` y `dualmoto(H)`. 
+
+La estructura `DualQuaternion{T}` representa un cuaternión dual cuyas cuatro componentes (una escalar y tres imaginarias) son números duales del tipo `ForwardDiff.Dual{Nothing, T, 1}`. Cada número dual almacena un valor primal y una parte tangencial, de modo que la regla del producto propaga automáticamente la información de traslación. 
+
+La función `motodual_from_quat(q_r, t)` construye el cuaternión dual directamente a partir del cuaternión de rotación y el vector de traslación obtenidos desde RoboDK, sin necesidad de pasar por una matriz homogénea 4×4. Las funciones `motodual(T)` y `dualmoto(H)` establecen el homomorfismo entre ambas representaciones, permitiendo convertir matrices homogéneas en cuaterniones duales y viceversa. Estas tres últimas funciones fueron desarrolladas por el autor como complemento metodológico del estudio.
+
+#### Benchmarks de rendimiento
+
+Con el fin de comparar el costo computacional de ambas representaciones, se definieron los siguientes benchmarks utilizando la librería `BenchmarkTools.jl`:
+
+- **Composición de matrices homogéneas:**
+  ```julia
+  @benchmark($T_1 * $T_2 * $T_3 * $T_4 * $T_5 * $T_6)
